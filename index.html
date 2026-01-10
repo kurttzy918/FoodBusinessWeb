@@ -34,6 +34,67 @@
             overflow-x: hidden;
             height: 100vh;
             display: flex;
+            cursor: none !important;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(255, 107, 53, 0.8);
+            pointer-events: none;
+            z-index: 99999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            pointer-events: none;
+            z-index: 99998;
+            transition: all 0.3s ease-out;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-hover {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(255, 107, 53, 1);
+        }
+
+        .cursor-follower-hover {
+            transform: translate(-50%, -50%) scale(1.2);
+            border-color: rgba(255, 107, 53, 0.8);
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        /* Hide cursor on mobile */
+        @media (max-width: 768px) {
+            body {
+                cursor: default !important;
+            }
+            
+            .cursor, .cursor-follower {
+                display: none;
+            }
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 99997;
+            transition: width 0.3s ease;
         }
 
         /* Left Brand Panel */
@@ -211,6 +272,7 @@
             overflow-y: auto;
             height: 100vh;
             position: relative;
+            scroll-behavior: smooth;
         }
 
         .page {
@@ -334,6 +396,51 @@
             color: #bbb;
             margin-bottom: 50px;
             max-width: 800px;
+        }
+
+        /* Scroll Animation Classes */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-animate-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-animate-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-animate-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-animate-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-animate-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scroll-animate-scale.animated {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Home Page */
@@ -1052,7 +1159,8 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design */
+        /* MOBILE-FRIENDLY IMPROVEMENTS */
+        /* Enhanced Mobile Responsiveness */
         @media (max-width: 1200px) {
             .brand-panel {
                 width: 200px;
@@ -1157,11 +1265,23 @@
             .menu-items-grid {
                 grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             }
+            
+            .hero-buttons {
+                flex-wrap: wrap;
+            }
         }
 
         @media (max-width: 768px) {
             .brand-panel {
                 padding: 15px 20px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 15px;
             }
             
             .logo-placeholder {
@@ -1178,15 +1298,21 @@
             }
             
             .hero-title {
-                font-size: 3rem;
+                font-size: 2.8rem;
+                line-height: 1.2;
             }
             
             .page-title {
                 font-size: 2.5rem;
             }
             
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            
             .menu-grid, .menu-items-grid {
                 grid-template-columns: 1fr;
+                gap: 25px;
             }
             
             .hero-buttons {
@@ -1197,6 +1323,8 @@
             .btn {
                 width: 100%;
                 text-align: center;
+                padding: 14px 25px;
+                font-size: 1rem;
             }
             
             .nav-item span {
@@ -1209,20 +1337,157 @@
             }
             
             .booking-form-container, .booking-info {
-                padding: 25px;
+                padding: 25px 20px;
             }
             
             .success-message {
-                padding: 30px;
+                padding: 30px 20px;
             }
             
             .delivery-options {
                 flex-direction: column;
+                gap: 10px;
+            }
+            
+            .delivery-option {
+                padding: 15px 10px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .hours-row {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-first, .brand-second {
+                font-size: 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .menu-content {
+                padding: 20px;
+            }
+            
+            .menu-title {
+                font-size: 1.4rem;
+            }
+            
+            .menu-desc {
+                font-size: 0.9rem;
+            }
+            
+            .menu-price {
+                font-size: 1.4rem;
+            }
+            
+            .booking-container {
+                gap: 25px;
+            }
+            
+            .form-control {
+                padding: 14px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .form-label {
+                font-size: 0.85rem;
+            }
+            
+            .menu-item-card {
+                padding: 15px;
+            }
+            
+            .menu-item-card h4 {
+                font-size: 1rem;
+            }
+            
+            .menu-item-card p {
+                font-size: 0.8rem;
+            }
+            
+            .submit-btn {
+                padding: 16px;
+                font-size: 1rem;
+            }
+            
+            .transition-text {
+                font-size: 2.5rem;
+            }
+            
+            .social-links {
+                gap: 15px;
+            }
+            
+            .social-links a {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .menu-card:hover {
+                transform: none;
+            }
+            
+            .btn:hover, .submit-btn:hover, .nav-item:hover {
+                transform: none;
+            }
+            
+            .quantity-btn:hover, .menu-price i:hover {
+                transform: none;
+            }
+            
+            .contact-item:hover {
+                transform: none;
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress"></div>
+
     <!-- Left Brand Panel -->
     <aside class="brand-panel">
         <div class="logo-container">
@@ -1249,7 +1514,7 @@
     <main class="main-content" id="mainContent">
         <!-- Home Page -->
         <section class="page active" id="homePage">
-            <div class="hero-content">
+            <div class="hero-content scroll-animate">
                 <h1 class="hero-title">Traditional Meryenda Delicacies</h1>
                 <p class="hero-text">Let's try our Local Dish Inspired by our heritage and passion for authentic flavors. Experience the unique taste of traditional Filipino snacks crafted with love and tradition.</p>
                 <div class="hero-buttons">
@@ -1264,12 +1529,12 @@
 
         <!-- Menu Page -->
         <section class="page" id="menuPage">
-            <h1 class="page-title">Our Menu</h1>
-            <p class="page-subtitle">Discover our signature Filipino meryenda delicacies, each crafted with traditional recipes and premium ingredients.</p>
+            <h1 class="page-title scroll-animate">Our Menu</h1>
+            <p class="page-subtitle scroll-animate">Discover our signature Filipino meryenda delicacies, each crafted with traditional recipes and premium ingredients.</p>
             
             <div class="menu-grid">
                 <!-- Menu Item 1 -->
-                <div class="menu-card" style="--card-index: 0;">
+                <div class="menu-card scroll-animate" style="--card-index: 0;">
                     <img src="kwek.jpg" alt="Kwek-Kwek" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Kwek-Kwek</h3>
@@ -1282,7 +1547,7 @@
                 </div>
                 
                 <!-- Menu Item 2 -->
-                <div class="menu-card" style="--card-index: 1;">
+                <div class="menu-card scroll-animate" style="--card-index: 1;">
                     <img src="siomai.jpg" alt="Steamed Siomai" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Steamed Siomai</h3>
@@ -1295,7 +1560,7 @@
                 </div>
                 
                 <!-- Menu Item 3 -->
-                <div class="menu-card" style="--card-index: 2;">
+                <div class="menu-card scroll-animate" style="--card-index: 2;">
                     <img src="friednoodles.jpg" alt="Fried Noodles" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Fried Noodles (Pancit)</h3>
@@ -1308,7 +1573,7 @@
                 </div>
                 
                 <!-- Menu Item 4 -->
-                <div class="menu-card" style="--card-index: 3;">
+                <div class="menu-card scroll-animate" style="--card-index: 3;">
                     <img src="isaw.jpg" alt="Fried Chicken Intestine" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Fried Chicken Intestine (Isaw)</h3>
@@ -1321,7 +1586,7 @@
                 </div>
                 
                 <!-- Menu Item 5 -->
-                <div class="menu-card" style="--card-index: 4;">
+                <div class="menu-card scroll-animate" style="--card-index: 4;">
                     <img src="burger.jpg" alt="Cheese Burger" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Cheese Burger with Egg</h3>
@@ -1334,7 +1599,7 @@
                 </div>
 
                 <!-- Menu Item 6 -->
-                <div class="menu-card" style="--card-index: 5;">
+                <div class="menu-card scroll-animate" style="--card-index: 5;">
                     <img src="beta.jpg" alt="Betamax" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Betamax</h3>
@@ -1354,11 +1619,11 @@
 
         <!-- Booking & Order Page -->
         <section class="page" id="bookingPage">
-            <h1 class="page-title">Booking & Order</h1>
-            <p class="page-subtitle">Ready to taste our Meryenda Delicacies? Place your order or send us an inquiry using the form below.</p>
+            <h1 class="page-title scroll-animate">Booking & Order</h1>
+            <p class="page-subtitle scroll-animate">Ready to taste our Meryenda Delicacies? Place your order or send us an inquiry using the form below.</p>
             
             <div class="booking-container">
-                <div class="booking-form-container">
+                <div class="booking-form-container scroll-animate-left">
                     <div class="form-header">
                         <h3>Order Form</h3>
                         <p>Fill out the form below to place your order</p>
@@ -1515,7 +1780,7 @@
                     </form>
                 </div>
                 
-                <div class="booking-info">
+                <div class="booking-info scroll-animate-right">
                     <div class="form-header">
                         <h3>Contact Information</h3>
                         <p>Get in touch with us</p>
@@ -1626,7 +1891,89 @@
             if (dateInput) {
                 dateInput.min = today;
             }
+            
+            // Initialize custom cursor
+            initCustomCursor();
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+            
+            // Initialize scroll progress bar
+            initScrollProgress();
         });
+
+        // Custom Cursor Functionality
+        function initCustomCursor() {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            
+            // Only show custom cursor on desktop
+            if (window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                    
+                    setTimeout(() => {
+                        follower.style.left = e.clientX + 'px';
+                        follower.style.top = e.clientY + 'px';
+                    }, 50);
+                });
+                
+                // Add hover effects to interactive elements
+                const interactiveElements = document.querySelectorAll(
+                    'a, button, .btn, .menu-item-card, .delivery-option, .quantity-btn, .menu-price i, .nav-item'
+                );
+                
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.classList.add('cursor-hover');
+                        follower.classList.add('cursor-follower-hover');
+                    });
+                    
+                    el.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('cursor-hover');
+                        follower.classList.remove('cursor-follower-hover');
+                    });
+                });
+            }
+        }
+
+        // Scroll Animations with Intersection Observer
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all scroll-animate elements
+            document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Scroll Progress Bar
+        function initScrollProgress() {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (scrollProgress && mainContent) {
+                mainContent.addEventListener('scroll', () => {
+                    const scrollTop = mainContent.scrollTop;
+                    const scrollHeight = mainContent.scrollHeight - mainContent.clientHeight;
+                    const scrollPercent = (scrollTop / scrollHeight) * 100;
+                    
+                    scrollProgress.style.width = scrollPercent + '%';
+                });
+            }
+        }
 
         // Navigation functionality
         function setupNavigation() {
@@ -1670,6 +2017,11 @@
                 targetPage.classList.add('active');
                 // Scroll to top of page
                 document.querySelector('.main-content').scrollTop = 0;
+                
+                // Reset scroll animations on new page
+                setTimeout(() => {
+                    initScrollAnimations();
+                }, 100);
             }, 800);
         }
 
@@ -1864,6 +2216,12 @@
                 });
             });
         }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            // Re-initialize cursor on resize
+            initCustomCursor();
+        });
     </script>
 </body>
 </html>
