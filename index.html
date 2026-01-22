@@ -6,6 +6,17 @@
     <title>KURT CREATES | PearlJoy Meryenda</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&family=Orbitron:wght@400;700;900&family=Bebas+Neue&family=Raleway:wght@800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Audio Player (Hidden, Auto-play) -->
+<audio id="background-music" autoplay loop>
+  <source src="I DO (CHERISH YOU) - Broken Anthem Ph (Rock Reimagined Cover).mp3" type="audio/mpeg">
+  <source src="background-music.ogg" type="audio/ogg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Mute/Unmute Button -->
+<button id="music-toggle" class="music-toggle-btn">
+  <i class="fas fa-volume-up"></i>
+</button>
     <style>
         * {
             margin: 0;
@@ -2364,6 +2375,31 @@ body {
         transform: translateX(0);
     }
 }
+  .music-toggle-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .music-toggle-btn:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+  }
+  
+  #background-music {
+    display: none;
+  }
     </style>
 </head>
 <body>
@@ -3294,6 +3330,35 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.min = today;
     }
 });
+// Music toggle functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const music = document.getElementById('background-music');
+    const toggleBtn = document.getElementById('music-toggle');
+    const icon = toggleBtn.querySelector('i');
+    
+    // Set volume to a reasonable level
+    music.volume = 0.3;
+    
+    toggleBtn.addEventListener('click', function() {
+      if (music.paused) {
+        music.play();
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      } else {
+        music.pause();
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      }
+    });
+    
+    // Autoplay with user interaction (for browsers that block autoplay)
+    document.body.addEventListener('click', function initAudio() {
+      if (music.paused) {
+        music.play().catch(e => console.log("Autoplay blocked:", e));
+      }
+      document.body.removeEventListener('click', initAudio);
+    }, { once: true });
+  });
     </script>
 </body>
 </html>
