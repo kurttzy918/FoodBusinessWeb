@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&family=Orbitron:wght@400;700;900&family=Bebas+Neue&family=Raleway:wght@800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
     <!-- Audio Player (Hidden, Auto-play) -->
 <audio id="background-music" autoplay loop>
-  <source src="I DO (CHERISH YOU) - Broken Anthem Ph (Rock Reimagined Cover).mp3" type="audio/mpeg">
+  <source src="SB19 - DAM.mp3" type="audio/mpeg">
   <source src="background-music.ogg" type="audio/ogg">
   Your browser does not support the audio element.
 </audio>
@@ -47,6 +47,194 @@
             display: flex;
             cursor: none !important;
         }
+
+        /* Hero Text Carousel Styles */
+        .hero-text-carousel {
+            position: relative;
+            height: 80px;
+            margin: 20px 0 40px;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .carousel-item {
+            font-size: 1.6rem;
+            color: #ddd;
+            line-height: 1.8;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.8s forwards;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+        }
+
+        .carousel-item span {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-item span::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+            opacity: 0;
+        }
+
+        .hero-text-carousel:hover .carousel-nav {
+            opacity: 1;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(255, 107, 53, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-nav.prev {
+            left: -50px;
+        }
+
+        .carousel-nav.next {
+            right: -50px;
+        }
+
+        /* Pause button */
+        .carousel-pause {
+            position: absolute;
+            top: -40px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+            transition: var(--transition);
+        }
+
+        .carousel-pause:hover {
+            color: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        /* Responsive adjustments for carousel */
+        @media (max-width: 768px) {
+            .hero-text-carousel {
+                height: 60px;
+                margin: 15px 0 30px;
+            }
+
+            .carousel-item {
+                font-size: 1.2rem;
+                height: 60px;
+            }
+
+            .carousel-nav {
+                display: none;
+            }
+
+            .carousel-indicators {
+                margin-top: 15px;
+            }
+
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text-carousel {
+                height: 50px;
+            }
+
+            .carousel-item {
+                font-size: 1rem;
+                height: 50px;
+            }
+
+            .carousel-item span {
+                padding: 3px 8px;
+            }
+        }
+
 /* Home Page with enhanced entrance animation */
 #home {
     background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95)), 
@@ -989,31 +1177,7 @@
             transform: scale(1);
         }
 
-        /* Home Page */
-        #home {
-            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.95)), 
-                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            transform: translateY(50px);
-            opacity: 0;
-            animation: heroSlideUp 1.5s ease-out 0.5s forwards;
-        }
-
-        @keyframes heroSlideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
+        /* Hero Title */
         .hero-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 5.5rem;
@@ -1034,13 +1198,6 @@
             100% {
                 background-position: 200% center;
             }
-        }
-
-        .hero-text {
-            font-size: 1.4rem;
-            margin-bottom: 40px;
-            color: #ddd;
-            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -2389,7 +2546,7 @@ body {
     cursor: pointer;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
   }
   
   .music-toggle-btn:hover {
@@ -2503,7 +2660,47 @@ body {
         <section class="page active" id="homePage">
             <div class="hero-content scroll-animate">
                 <h1 class="hero-title">Traditional Meryenda Delicacies</h1>
-                <p class="hero-text">Let's try our Meryenda Delicacies Located at Pasinaya Santa Maria Bulacan Phase 4</p>
+                
+                <!-- Hero Text Carousel -->
+                <div class="hero-text-carousel scroll-animate">
+                    <button class="carousel-pause" id="carouselPause">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-item active">
+                            <span>Try our Meryenda Delicacies Located at Pasinaya Santa Maria Bulacan Phase 4</span>
+                        </div>
+                        <div class="carousel-item">
+                            <span>Experience authentic Filipino Meryenda's</span>
+                        </div>
+                        <div class="carousel-item">
+                            <span>Home-made Meryenda's</span>
+                        </div>
+                        <div class="carousel-item">
+                            <span>Order now through message or walk-in</span>
+                        </div>
+                        <div class="carousel-item">
+                            <span>Courteny & PearlJoy Meryenda's</span>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-nav prev" id="carouselPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="carousel-nav next" id="carouselNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    
+                    <div class="carousel-indicators" id="carouselIndicators">
+                        <div class="carousel-dot active" data-index="0"></div>
+                        <div class="carousel-dot" data-index="1"></div>
+                        <div class="carousel-dot" data-index="2"></div>
+                        <div class="carousel-dot" data-index="3"></div>
+                        <div class="carousel-dot" data-index="4"></div>
+                    </div>
+                </div>
+                
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="switchPage('menuPage')">Explore Our Menu</button>
                     <button class="btn btn-secondary" onclick="switchPage('bookingPage')">Place Your Order</button>
@@ -2599,6 +2796,7 @@ body {
                 </div>
             </div>
             
+
             <div class="page-footer">
                 <p>All prices are in Philippine Peso (₱). Menu items are subject to availability. Delivery charges may apply.</p>
             </div>
@@ -2901,7 +3099,166 @@ body {
             
             // Initialize scroll progress bar
             initScrollProgress();
+            
+            // Initialize hero text carousel
+            initHeroTextCarousel();
         });
+
+        // Hero Text Carousel Functionality
+        function initHeroTextCarousel() {
+            const carouselTrack = document.getElementById('carouselTrack');
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const carouselDots = document.querySelectorAll('.carousel-dot');
+            const carouselPrev = document.getElementById('carouselPrev');
+            const carouselNext = document.getElementById('carouselNext');
+            const carouselPause = document.getElementById('carouselPause');
+            
+            if (!carouselTrack || !carouselItems.length) return;
+            
+            let currentIndex = 0;
+            let isPaused = false;
+            let autoPlayInterval;
+            
+            // Function to update carousel position
+            function updateCarousel() {
+                // Update active item
+                carouselItems.forEach((item, index) => {
+                    item.classList.remove('active');
+                    if (index === currentIndex) {
+                        setTimeout(() => {
+                            item.classList.add('active');
+                        }, 50);
+                    }
+                });
+                
+                // Update active dot
+                carouselDots.forEach((dot, index) => {
+                    dot.classList.remove('active');
+                    if (index === currentIndex) {
+                        dot.classList.add('active');
+                    }
+                });
+                
+                // Update track position
+                const itemHeight = carouselItems[0].offsetHeight;
+                carouselTrack.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+            }
+            
+            // Function to go to next slide
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % carouselItems.length;
+                updateCarousel();
+            }
+            
+            // Function to go to previous slide
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+                updateCarousel();
+            }
+            
+            // Function to go to specific slide
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            // Function to toggle auto-play
+            function toggleAutoPlay() {
+                isPaused = !isPaused;
+                const icon = carouselPause.querySelector('i');
+                
+                if (isPaused) {
+                    clearInterval(autoPlayInterval);
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                } else {
+                    startAutoPlay();
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                }
+            }
+            
+            // Function to start auto-play
+            function startAutoPlay() {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = setInterval(nextSlide, 4000); // Change every 4 seconds
+            }
+            
+            // Initialize auto-play
+            startAutoPlay();
+            
+            // Event listeners
+            if (carouselPrev) {
+                carouselPrev.addEventListener('click', () => {
+                    prevSlide();
+                    if (isPaused) {
+                        toggleAutoPlay(); // Resume auto-play when manually navigating
+                    }
+                });
+            }
+            
+            if (carouselNext) {
+                carouselNext.addEventListener('click', () => {
+                    nextSlide();
+                    if (isPaused) {
+                        toggleAutoPlay(); // Resume auto-play when manually navigating
+                    }
+                });
+            }
+            
+            if (carouselPause) {
+                carouselPause.addEventListener('click', toggleAutoPlay);
+            }
+            
+            // Add click events to dots
+            carouselDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    if (isPaused) {
+                        toggleAutoPlay(); // Resume auto-play when manually navigating
+                    }
+                });
+            });
+            
+            // Pause on hover
+            carouselTrack.parentElement.addEventListener('mouseenter', () => {
+                clearInterval(autoPlayInterval);
+            });
+            
+            carouselTrack.parentElement.addEventListener('mouseleave', () => {
+                if (!isPaused) {
+                    startAutoPlay();
+                }
+            });
+            
+            // Touch swipe support for mobile
+            let touchStartY = 0;
+            let touchEndY = 0;
+            
+            carouselTrack.parentElement.addEventListener('touchstart', (e) => {
+                touchStartY = e.changedTouches[0].screenY;
+            });
+            
+            carouselTrack.parentElement.addEventListener('touchend', (e) => {
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                
+                if (touchStartY - touchEndY > swipeThreshold) {
+                    // Swipe up - next slide
+                    nextSlide();
+                } else if (touchEndY - touchStartY > swipeThreshold) {
+                    // Swipe down - previous slide
+                    prevSlide();
+                }
+            }
+            
+            // Initialize carousel position
+            updateCarousel();
+        }
 
         // Custom Cursor Functionality
         function initCustomCursor() {
@@ -2922,7 +3279,7 @@ body {
                 
                 // Add hover effects to interactive elements
                 const interactiveElements = document.querySelectorAll(
-                    'a, button, .btn, .menu-item-card, .delivery-option, .quantity-btn, .menu-price i, .nav-item'
+                    'a, button, .btn, .menu-item-card, .delivery-option, .quantity-btn, .menu-price i, .nav-item, .carousel-nav, .carousel-dot, .carousel-pause'
                 );
                 
                 interactiveElements.forEach(el => {
@@ -3287,6 +3644,7 @@ function initLoadingScreen() {
                     setupNavigation();
                     setupBookingForm();
                     setupMenuFavorites();
+                    initHeroTextCarousel();
                     
                     // Trigger initial scroll animations
                     setTimeout(() => {
