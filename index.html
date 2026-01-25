@@ -54,12 +54,14 @@
             height: 80px;
             margin: 20px 0 40px;
             overflow: hidden;
+            color: white;
         }
 
         .carousel-track {
             display: flex;
             flex-direction: column;
             transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            color: white;
         }
 
         .carousel-item {
@@ -79,6 +81,7 @@
 
         .carousel-item.active {
             opacity: 1;
+            color: white;
         }
 
         .carousel-item span {
@@ -86,7 +89,7 @@
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            color: white
             font-weight: 600;
             padding: 5px 10px;
             border-radius: 8px;
@@ -1260,7 +1263,7 @@
             box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
         }
 
-        /* Menu Page */
+        /* Menu Page - FIXED SPACING */
         #menu {
             background: var(--darker);
             position: relative;
@@ -1283,13 +1286,13 @@
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
+            gap: 30px; /* Reduced gap for better spacing */
+            margin-top: 40px; /* Reduced margin */
         }
 
         .menu-card {
             background: var(--gray);
-            border-radius: 20px;
+            border-radius: 15px; /* Slightly smaller radius */
             overflow: hidden;
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1297,6 +1300,9 @@
             transform: translateY(30px) scale(0.95);
             animation: cardAppear 0.8s forwards;
             animation-delay: calc(var(--card-index) * 0.2s);
+            height: 450px; /* Fixed height for consistency */
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes cardAppear {
@@ -1307,56 +1313,118 @@
         }
 
         .menu-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(-10px) scale(1.02); /* Reduced hover effect */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 107, 53, 0.5);
         }
 
         .menu-img {
-            height: 250px;
+            height: 200px; /* Fixed height */
             width: 100%;
             object-fit: cover;
             transition: transform 0.8s ease;
         }
 
         .menu-card:hover .menu-img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .menu-content {
-            padding: 30px;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .menu-title {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             color: var(--light);
             transition: var(--transition);
+            min-height: 50px;
         }
 
         .menu-card:hover .menu-title {
             color: var(--primary);
-            transform: translateX(5px);
+            transform: translateX(3px);
         }
 
-        .menu-desc {
-            color: #bbb;
+        /* Menu Description Carousel */
+        .menu-desc-carousel {
+            position: relative;
+            height: 120px; /* Fixed height for carousel */
             margin-bottom: 20px;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        .menu-desc-slides {
+            position: relative;
+            height: 100%;
+        }
+
+        .menu-desc-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #bbb;
             line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .menu-desc-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .menu-desc-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .menu-desc-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .menu-desc-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+            box-shadow: 0 0 8px rgba(255, 107, 53, 0.5);
+        }
+
+        .menu-desc-dot:hover {
+            background: rgba(255, 107, 53, 0.5);
         }
 
         .menu-price {
             color: var(--primary);
             font-weight: 700;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: auto; /* Push to bottom */
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .menu-price span {
             position: relative;
-            padding-left: 20px;
+            padding-left: 25px;
         }
 
         .menu-price span::before {
@@ -1364,7 +1432,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
         }
 
         .menu-price i {
@@ -2013,9 +2081,18 @@
                 font-size: 1.1rem;
             }
             
-            .menu-grid, .menu-items-grid {
+            .menu-grid {
                 grid-template-columns: 1fr;
                 gap: 25px;
+            }
+            
+            .menu-card {
+                height: auto;
+                min-height: 400px;
+            }
+            
+            .menu-desc-carousel {
+                height: 100px;
             }
             
             .hero-buttons {
@@ -2095,14 +2172,16 @@
             }
             
             .menu-content {
-                padding: 20px;
+                padding: 15px;
             }
             
             .menu-title {
                 font-size: 1.4rem;
+                min-height: 40px;
             }
             
-            .menu-desc {
+            .menu-desc-carousel {
+                height: 90px;
                 font-size: 0.9rem;
             }
             
@@ -2711,18 +2790,38 @@ body {
             </div>
         </section>
 
-        <!-- Menu Page -->
+        <!-- Menu Page with Slide-Up Carousel Descriptions -->
         <section class="page" id="menuPage">
             <h1 class="page-title scroll-animate">Our Menu</h1>
             <p class="page-subtitle scroll-animate">Discover our signature Filipino meryenda delicacies, each crafted with traditional recipes and premium ingredients.</p>
             
             <div class="menu-grid">
-                <!-- Menu Item 1 -->
+                <!-- Menu Item 1 - Kwek-Kwek -->
                 <div class="menu-card scroll-animate" style="--card-index: 0;">
                     <img src="kwek.jpg" alt="Kwek-Kwek" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Kwek-Kwek</h3>
-                        <p class="menu-desc">Traditional Filipino egg-based dish with a crispy orange batter coating and a rich, savory flavor. Served with spicy vinegar dipping sauce.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-kwek">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    Traditional Filipino egg-based dish with a crispy orange batter coating
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Rich, savory flavor that's perfect for snacks
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Served with spicy vinegar dipping sauce
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>20</span>
                             <i class="far fa-heart"></i>
@@ -2730,12 +2829,32 @@ body {
                     </div>
                 </div>
                 
-                <!-- Menu Item 2 -->
+                <!-- Menu Item 2 - Steamed Siomai -->
                 <div class="menu-card scroll-animate" style="--card-index: 1;">
                     <img src="siomai.jpg" alt="Steamed Siomai" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Steamed Siomai</h3>
-                        <p class="menu-desc">Traditional Filipino steamed dumplings filled with pork and shrimp, served with a spicy vinegar dipping sauce and calamansi.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-siomai">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    Traditional Filipino steamed dumplings filled with pork and shrimp
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Perfectly steamed to retain moisture and flavor
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Served with spicy vinegar dipping sauce and calamansi
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>30</span>
                             <i class="far fa-heart"></i>
@@ -2743,12 +2862,32 @@ body {
                     </div>
                 </div>
                 
-                <!-- Menu Item 3 -->
+                <!-- Menu Item 3 - Fried Noodles -->
                 <div class="menu-card scroll-animate" style="--card-index: 2;">
                     <img src="friednoodles.jpg" alt="Fried Noodles" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Fried Noodles (Pancit)</h3>
-                        <p class="menu-desc">Traditional Filipino fried noodles with vegetables, chicken, and a savory sauce. A classic Filipino comfort food.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-noodles">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    Traditional Filipino fried noodles with vegetables and chicken
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Cooked with a savory sauce for authentic flavor
+                                </div>
+                                <div class="menu-desc-slide">
+                                    A classic Filipino comfort food perfect for gatherings
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>40</span>
                             <i class="far fa-heart"></i>
@@ -2756,12 +2895,32 @@ body {
                     </div>
                 </div>
                 
-                <!-- Menu Item 4 -->
+                <!-- Menu Item 4 - Fried Chicken Intestine -->
                 <div class="menu-card scroll-animate" style="--card-index: 3;">
                     <img src="isaw.jpg" alt="Fried Chicken Intestine" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Fried Chicken Intestine (Isaw)</h3>
-                        <p class="menu-desc">Traditional Filipino street food made from fried chicken intestines, seasoned with spices and served with a spicy vinegar dipping sauce.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-isaw">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    Traditional Filipino street food made from chicken intestines
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Expertly cleaned and fried to crispy perfection
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Seasoned with spices and served with spicy vinegar sauce
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>10</span>
                             <i class="far fa-heart"></i>
@@ -2769,12 +2928,32 @@ body {
                     </div>
                 </div>
                 
-                <!-- Menu Item 5 -->
+                <!-- Menu Item 5 - Cheese Burger -->
                 <div class="menu-card scroll-animate" style="--card-index: 4;">
                     <img src="burger.jpg" alt="Cheese Burger" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Cheese Burger with Egg</h3>
-                        <p class="menu-desc">A classic cheeseburger with a juicy beef patty, melted cheese, fried egg, fresh vegetables, and a special sauce in a soft bun.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-burger">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    A classic cheeseburger with juicy beef patty and melted cheese
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Topped with a perfectly fried egg and fresh vegetables
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Special sauce in a soft, toasted bun for the ultimate burger experience
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>35</span>
                             <i class="far fa-heart"></i>
@@ -2782,12 +2961,65 @@ body {
                     </div>
                 </div>
 
-                <!-- Menu Item 6 -->
+                <!-- Menu Item 6 - Betamax -->
                 <div class="menu-card scroll-animate" style="--card-index: 5;">
                     <img src="beta.jpg" alt="Betamax" class="menu-img">
                     <div class="menu-content">
                         <h3 class="menu-title">Betamax</h3>
-                        <p class="menu-desc">Grilled, coagulated pork blood cut into dark, rectangular blocks offering a savory, slightly livery taste enhanced by tangy, spicy vinegar dipping sauce.</p>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-betamax">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    Grilled, coagulated pork blood cut into rectangular blocks
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Savory, slightly livery taste enhanced by grilling
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Served with tangy, spicy vinegar dipping sauce
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-price">
+                            <span>10</span>
+                            <i class="far fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Menu Item 7 - Palamig -->
+                <div class="menu-card scroll-animate" style="--card-index: 6;">
+                    <img src="GEDC1647.JPG" alt="Palamig" class="menu-img">
+                    <div class="menu-content">
+                        <h3 class="menu-title">Palamig</h3>
+                        
+                        <!-- Description Carousel -->
+                        <div class="menu-desc-carousel" id="carousel-palamig">
+                            <div class="menu-desc-slides">
+                                <div class="menu-desc-slide active">
+                                    A refreshing drink made from coconut water, sugar, and spices
+                                </div>
+                                <div class="menu-desc-slide">
+                                    Perfectly chilled and served over ice
+                                </div>
+                                <div class="menu-desc-slide">
+                                    The ideal companion for our savory meryenda dishes
+                                </div>
+                            </div>
+                            <div class="menu-desc-nav">
+                                <div class="menu-desc-dot active" data-index="0"></div>
+                                <div class="menu-desc-dot" data-index="1"></div>
+                                <div class="menu-desc-dot" data-index="2"></div>
+                            </div>
+                        </div>
+                        
                         <div class="menu-price">
                             <span>10</span>
                             <i class="far fa-heart"></i>
@@ -2796,7 +3028,6 @@ body {
                 </div>
             </div>
             
-
             <div class="page-footer">
                 <p>All prices are in Philippine Peso (₱). Menu items are subject to availability. Delivery charges may apply.</p>
             </div>
@@ -2953,6 +3184,18 @@ body {
                                         <button type="button" class="quantity-btn plus">+</button>
                                     </div>
                                 </div>
+
+                                <!-- Palamig -->
+                                <div class="menu-item-card" data-item="palamig">
+                                    <h4>Palamig</h4>
+                                    <p>A refreshing drink made from coconut water, sugar, and spices</p>
+                                    <div class="menu-item-price">₱10</div>
+                                    <div class="quantity-selector">
+                                        <button type="button" class="quantity-btn minus">-</button>
+                                        <span class="quantity">0</span>
+                                        <button type="button" class="quantity-btn plus">+</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -3041,7 +3284,7 @@ body {
 <div class="page-transition" id="pageTransition">
     <div class="transition-content">
         <div class="transition-logo">
-            <img src="ChatGPT Image Jan 22, 2026, 10_41_33 PM.png" alt="KURT CREATES Logo">
+            <img src="me and honey.png" alt="KURT CREATES Logo">
         </div>
         <div class="transition-brand">
             <div class="transition-brand-first">KURT</div>
@@ -3102,7 +3345,72 @@ body {
             
             // Initialize hero text carousel
             initHeroTextCarousel();
+            
+            // Initialize menu description carousels
+            initMenuDescCarousels();
         });
+
+        // Menu Description Carousel Functionality
+        function initMenuDescCarousels() {
+            const carousels = document.querySelectorAll('.menu-desc-carousel');
+            
+            carousels.forEach(carousel => {
+                const slides = carousel.querySelectorAll('.menu-desc-slide');
+                const dots = carousel.querySelectorAll('.menu-desc-dot');
+                let currentIndex = 0;
+                let interval;
+                
+                function showSlide(index) {
+                    // Hide all slides
+                    slides.forEach(slide => {
+                        slide.classList.remove('active');
+                    });
+                    
+                    // Remove active class from all dots
+                    dots.forEach(dot => {
+                        dot.classList.remove('active');
+                    });
+                    
+                    // Show current slide
+                    slides[index].classList.add('active');
+                    dots[index].classList.add('active');
+                    currentIndex = index;
+                }
+                
+                function nextSlide() {
+                    let nextIndex = (currentIndex + 1) % slides.length;
+                    showSlide(nextIndex);
+                }
+                
+                // Auto-play functionality
+                function startAutoPlay() {
+                    interval = setInterval(nextSlide, 3000); // Change every 3 seconds
+                }
+                
+                // Stop auto-play on hover
+                carousel.addEventListener('mouseenter', () => {
+                    clearInterval(interval);
+                });
+                
+                carousel.addEventListener('mouseleave', () => {
+                    startAutoPlay();
+                });
+                
+                // Dot click functionality
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        showSlide(index);
+                        // Reset timer on manual navigation
+                        clearInterval(interval);
+                        startAutoPlay();
+                    });
+                });
+                
+                // Start auto-play
+                startAutoPlay();
+            });
+        }
 
         // Hero Text Carousel Functionality
         function initHeroTextCarousel() {
@@ -3380,6 +3688,11 @@ body {
                 setTimeout(() => {
                     initScrollAnimations();
                 }, 100);
+                
+                // Re-initialize menu carousels if on menu page
+                if (pageId === 'menuPage') {
+                    initMenuDescCarousels();
+                }
             }, 800);
         }
 
@@ -3645,6 +3958,7 @@ function initLoadingScreen() {
                     setupBookingForm();
                     setupMenuFavorites();
                     initHeroTextCarousel();
+                    initMenuDescCarousels();
                     
                     // Trigger initial scroll animations
                     setTimeout(() => {
