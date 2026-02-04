@@ -2636,72 +2636,973 @@ body {
   #background-music {
     display: none;
   }
+  /* Fix Menu Grid Spacing */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.menu-card {
+    background: var(--gray);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardAppear 0.8s forwards;
+    animation-delay: calc(var(--card-index) * 0.2s);
+    height: 420px; /* Reduced height for better mobile fit */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu-img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.menu-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-desc-carousel {
+    height: 100px; /* Reduced for mobile */
+    margin-bottom: 15px;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.menu-desc-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #bbb;
+    line-height: 1.6; /* Better line spacing */
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+
+/* Fix for Loading Screen Image */
+.loading-logo {
+    position: relative;
+    width: 150px; /* Fixed size */
+    height: 150px;
+    margin: 0 auto 20px; /* Center alignment */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-spin {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 4s linear infinite;
+    background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent 70%);
+    border: 2px solid rgba(255, 107, 53, 0.2);
+    box-shadow: 
+        0 0 60px rgba(255, 107, 53, 0.3),
+        inset 0 0 30px rgba(255, 107, 53, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.logo-spin img {
+    width: 80px; /* Fixed size */
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.8));
+}
+
+/* Enhanced Mobile Responsiveness for Menu */
+@media (max-width: 768px) {
+    .menu-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .menu-card {
+        height: 380px; /* Smaller height for mobile */
+        min-height: auto;
+        margin: 0 auto;
+        max-width: 400px;
+    }
+    
+    .menu-img {
+        height: 160px;
+    }
+    
+    .menu-content {
+        padding: 15px;
+    }
+    
+    .menu-title {
+        font-size: 1.3rem;
+        min-height: 40px;
+    }
+    
+    .menu-desc-carousel {
+        height: 90px;
+    }
+    
+    .menu-desc-slide {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .menu-price {
+        font-size: 1.5rem;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .menu-grid {
+        gap: 15px;
+    }
+    
+    .menu-card {
+        height: 360px;
+        max-width: 100%;
+    }
+    
+    .menu-img {
+        height: 140px;
+    }
+    
+    .menu-title {
+        font-size: 1.2rem;
+        min-height: 35px;
+    }
+    
+    .menu-desc-carousel {
+        height: 80px;
+    }
+    
+    .menu-desc-slide {
+        font-size: 0.85rem;
+    }
+    
+    /* Fix loading screen for mobile */
+    .loading-logo {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .logo-spin {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .logo-spin img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .loading-brand-first .letter,
+    .loading-brand-second .letter {
+        font-size: 1.8rem; /* Smaller for mobile */
+    }
+    
+    .loading-container {
+        gap: 20px;
+        padding: 20px;
+    }
+}
+
+/* iPhone specific fixes */
+@media (max-width: 375px) {
+    .menu-card {
+        height: 340px;
+    }
+    
+    .menu-img {
+        height: 130px;
+    }
+    
+    .menu-content {
+        padding: 12px;
+    }
+    
+    .loading-brand-first .letter,
+    .loading-brand-second .letter {
+        font-size: 1.6rem;
+    }
+}
+
+/* Landscape mode fixes */
+@media (max-height: 500px) and (orientation: landscape) {
+    .loading-container {
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    .loading-logo {
+        width: 80px;
+        height: 80px;
+        margin: 0;
+    }
+    
+    .logo-spin {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .logo-spin img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Safari/iOS specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .menu-card {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+    }
+    
+    .menu-img {
+        -webkit-transform: translateZ(0);
+    }
+}
+
+/* Fix for Android Chrome */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .menu-card {
+        transform: translateZ(0);
+    }
+}
+/* Modern Loading Screen Styles */
+.modern-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.loading-circle-outer {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 53, 0.1) 0%,
+        rgba(255, 165, 0, 0.1) 25%,
+        rgba(0, 200, 150, 0.1) 50%,
+        rgba(76, 201, 240, 0.1) 75%,
+        rgba(157, 78, 221, 0.1) 100%);
+    padding: 8px;
+    box-shadow: 
+        0 0 60px rgba(255, 107, 53, 0.2),
+        inset 0 0 40px rgba(255, 255, 255, 0.05);
+    animation: outerPulse 3s infinite ease-in-out;
+}
+
+@keyframes outerPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 60px rgba(255, 107, 53, 0.2),
+            inset 0 0 40px rgba(255, 255, 255, 0.05);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 
+            0 0 80px rgba(255, 107, 53, 0.3),
+            inset 0 0 60px rgba(255, 255, 255, 0.08);
+    }
+}
+
+.loading-circle-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 53, 0.15) 0%,
+        rgba(255, 165, 0, 0.15) 50%,
+        rgba(0, 200, 150, 0.15) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: innerRotate 8s linear infinite;
+}
+
+@keyframes innerRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-profile {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    z-index: 2;
+}
+
+.loading-profile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: imageFloat 4s infinite ease-in-out;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes imageFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
+
+.loading-profile-image img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
+}
+
+.profile-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(255, 107, 53, 0.3) 0%,
+        rgba(255, 107, 53, 0.1) 50%,
+        transparent 70%);
+    animation: glowPulse 2s infinite ease-in-out;
+    z-index: -1;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* Border dots animation */
+.border-dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.border-dots .dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+    transform: translate(-50%, -50%);
+    animation: dotOrbit 4s infinite linear;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.dot-1 { top: 0%; left: 50%; animation-delay: 0s; }
+.dot-2 { top: 15%; left: 85%; animation-delay: 0.5s; }
+.dot-3 { top: 50%; left: 100%; animation-delay: 1s; }
+.dot-4 { top: 85%; left: 85%; animation-delay: 1.5s; }
+.dot-5 { top: 100%; left: 50%; animation-delay: 2s; }
+.dot-6 { top: 85%; left: 15%; animation-delay: 2.5s; }
+.dot-7 { top: 50%; left: 0%; animation-delay: 3s; }
+.dot-8 { top: 15%; left: 15%; animation-delay: 3.5s; }
+
+@keyframes dotOrbit {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) translateX(90px) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) translateX(90px) rotate(-360deg);
+    }
+}
+
+/* Loading text */
+.loading-text {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.brand-name-loading {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.brand-part {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    position: relative;
+    animation: textReveal 1s ease-out forwards;
+    opacity: 0;
+}
+
+.brand-part.kurt {
+    font-family: cursive;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation-delay: 0.5s;
+    text-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+}
+
+.brand-part.creates {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background: linear-gradient(90deg, var(--accent), var(--blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation-delay: 0.8s;
+    text-shadow: 0 5px 15px rgba(0, 200, 150, 0.3);
+}
+
+.loading-subtitle {
+    font-size: 1.2rem;
+    color: #aaa;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease 1.2s forwards;
+}
+
+@keyframes textReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modern progress bar */
+.loading-progress-container {
+    width: 400px;
+    max-width: 90%;
+    margin-top: 40px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards 1.5s;
+}
+
+.loading-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.loading-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, 
+        var(--primary) 0%,
+        var(--secondary) 50%,
+        var(--accent) 100%);
+    border-radius: 3px;
+    box-shadow: 
+        0 0 10px rgba(255, 107, 53, 0.5),
+        0 0 20px rgba(255, 107, 53, 0.3);
+    transition: width 0.3s ease;
+}
+
+.progress-indicator {
+    position: absolute;
+    top: -3px;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--light);
+    box-shadow: 
+        0 0 10px var(--primary),
+        0 0 20px var(--primary);
+    transform: translateX(50%);
+    animation: indicatorPulse 1.5s infinite;
+}
+
+@keyframes indicatorPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 10px var(--primary),
+            0 0 20px var(--primary);
+    }
+    50% {
+        box-shadow: 
+            0 0 15px var(--primary),
+            0 0 30px var(--primary);
+    }
+}
+
+/* Modern dots */
+.modern-dots {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards 1.8s;
+}
+
+.modern-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: modernDotBounce 1.6s infinite ease-in-out;
+}
+
+.modern-dot.dot-1 { animation-delay: -0.32s; }
+.modern-dot.dot-2 { animation-delay: -0.16s; }
+.modern-dot.dot-3 { animation-delay: 0s; }
+.modern-dot.dot-4 { animation-delay: 0.16s; }
+.modern-dot.dot-5 { animation-delay: 0.32s; }
+
+@keyframes modernDotBounce {
+    0%, 80%, 100% { 
+        transform: scale(0.6);
+        opacity: 0.3;
+        background: var(--primary);
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+        background: var(--accent);
+    }
+}
+
+/* Modern particles */
+.modern-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.modern-particles .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: modernFloat 15s infinite linear;
+}
+
+.particle-1 {
+    width: 8px;
+    height: 8px;
+    top: 15%;
+    left: 10%;
+    background: var(--primary);
+    animation-duration: 18s;
+}
+.particle-2 {
+    width: 12px;
+    height: 12px;
+    top: 25%;
+    right: 15%;
+    background: var(--secondary);
+    animation-duration: 22s;
+    animation-delay: 2s;
+}
+.particle-3 {
+    width: 6px;
+    height: 6px;
+    bottom: 30%;
+    left: 20%;
+    background: var(--accent);
+    animation-duration: 20s;
+    animation-delay: 1s;
+}
+.particle-4 {
+    width: 10px;
+    height: 10px;
+    top: 60%;
+    left: 80%;
+    background: var(--blue);
+    animation-duration: 25s;
+    animation-delay: 3s;
+}
+.particle-5 {
+    width: 5px;
+    height: 5px;
+    bottom: 20%;
+    right: 30%;
+    background: var(--purple);
+    animation-duration: 17s;
+    animation-delay: 0.5s;
+}
+.particle-6 {
+    width: 9px;
+    height: 9px;
+    top: 40%;
+    left: 50%;
+    background: var(--primary);
+    animation-duration: 19s;
+    animation-delay: 1.5s;
+}
+
+@keyframes modernFloat {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(100px, -80px) rotate(90deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(200px, 0) rotate(180deg);
+        opacity: 0.2;
+    }
+    75% {
+        transform: translate(100px, 80px) rotate(270deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(0, 0) rotate(360deg);
+        opacity: 0.2;
+    }
+}
+
+/* Remove old loading screen styles */
+.logo-spin, .logo-glow, .loading-brand, .loading-dots {
+    display: none;
+}
+/* Update the logo placeholder to be round */
+.logo-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Make it round */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    position: relative;
+    transition: var(--transition);
+    animation: logoFloat 4s infinite ease-in-out;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 10px 30px rgba(255, 107, 53, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.logo-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, 
+        var(--primary),
+        var(--secondary),
+        var(--accent),
+        var(--blue));
+    z-index: -1;
+    animation: logoBorder 3s linear infinite;
+    opacity: 0.5;
+}
+
+@keyframes logoBorder {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.logo-placeholder img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 50%; /* Make the image inside round */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(255, 107, 53, 0.2);
+    transition: var(--transition);
+}
+
+.logo-placeholder:hover img {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile responsiveness for logo placeholder */
+@media (max-width: 992px) {
+    .logo-placeholder {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-placeholder {
+        width: 80px;
+        height: 80px;
+    }
+    
+    /* Update modern loading for mobile */
+    .modern-loading {
+        gap: 20px;
+    }
+    
+    .loading-circle-outer {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .loading-profile {
+        width: 110px;
+        height: 110px;
+    }
+    
+    .brand-part {
+        font-size: 2.5rem;
+    }
+    
+    .loading-subtitle {
+        font-size: 1rem;
+    }
+    
+    .loading-progress-container {
+        width: 300px;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-placeholder {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .loading-circle-outer {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .loading-profile {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .brand-part {
+        font-size: 2rem;
+        letter-spacing: 2px;
+    }
+    
+    .loading-subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    
+    .loading-progress-container {
+        width: 250px;
+    }
+    
+    .modern-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Landscape mode fixes */
+@media (max-height: 600px) and (orientation: landscape) {
+    .modern-loading {
+        flex-direction: row;
+        gap: 30px;
+    }
+    
+    .loading-circle-outer {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .loading-profile {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .loading-text {
+        text-align: left;
+    }
+    
+    .brand-name-loading {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .brand-part {
+        font-size: 2rem;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .loading-profile-image img {
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+    }
+    
+    .loading-circle-outer {
+        -webkit-transform: translateZ(0);
+    }
+}
     </style>
 </head>
 <body>
     <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-container">
-            <div class="loading-logo">
-                <div class="logo-spin">
-                    <img src="me and honey.png" alt="KURT CREATES Logo">
+    <!-- Update the loading screen section -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="loading-container">
+        <!-- Modern Round Loading Animation -->
+        <div class="modern-loading">
+            <!-- Outer circle with gradient border -->
+            <div class="loading-circle-outer">
+                <!-- Inner circle with rotating gradient -->
+                <div class="loading-circle-inner">
+                    <!-- Profile image container -->
+                    <div class="loading-profile">
+                        <div class="loading-profile-image">
+                            <img src="me and honey.png" alt="KURT CREATES Logo">
+                        </div>
+                        <!-- Pulsing glow effect -->
+                        <div class="profile-glow"></div>
+                    </div>
                 </div>
-                <div class="logo-glow"></div>
-            </div>
-            
-            <div class="loading-brand">
-                <div class="loading-brand-first">
-                    <span class="letter">K</span>
-                    <span class="letter">U</span>
-                    <span class="letter">R</span>
-                    <span class="letter">T</span>
-                </div>
-                <div class="loading-brand-second">
-                    <span class="letter">C</span>
-                    <span class="letter">R</span>
-                    <span class="letter">E</span>
-                    <span class="letter">A</span>
-                    <span class="letter">T</span>
-                    <span class="letter">E</span>
-                    <span class="letter">S</span>
+                <!-- Animated border dots -->
+                <div class="border-dots">
+                    <div class="dot dot-1"></div>
+                    <div class="dot dot-2"></div>
+                    <div class="dot dot-3"></div>
+                    <div class="dot dot-4"></div>
+                    <div class="dot dot-5"></div>
+                    <div class="dot dot-6"></div>
+                    <div class="dot dot-7"></div>
+                    <div class="dot dot-8"></div>
                 </div>
             </div>
             
-            <div class="loading-tagline">
-                <span>Traditional Meryenda Delicacies</span>
-            </div>
-            
-            <div class="loading-progress-container">
-                <div class="loading-progress-bar">
-                    <div class="loading-progress-fill" id="loadingProgress"></div>
+            <!-- Loading text with brand name -->
+            <div class="loading-text">
+                <div class="brand-name-loading">
+                    <span class="brand-part kurt">KURT</span>
+                    <span class="brand-part creates">CREATES</span>
                 </div>
-                <div class="loading-percentage" id="loadingPercentage">0%</div>
-            </div>
-            
-            <div class="loading-dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-            
-            <div class="loading-quote">
-                <p>"We Assure the taste of our Delicacies are Unique"</p>
+                <div class="loading-subtitle">Traditional Meryenda Delicacies</div>
             </div>
         </div>
         
-        <!-- Floating particles for loading screen -->
-        <div class="loading-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
+        <!-- Loading progress -->
+        <div class="loading-progress-container">
+            <div class="loading-progress-bar">
+                <div class="loading-progress-fill" id="loadingProgress"></div>
+                <!-- Animated progress indicator -->
+                <div class="progress-indicator"></div>
+            </div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+        </div>
+        
+        <!-- Modern loading dots -->
+        <div class="modern-dots">
+            <div class="modern-dot dot-1"></div>
+            <div class="modern-dot dot-2"></div>
+            <div class="modern-dot dot-3"></div>
+            <div class="modern-dot dot-4"></div>
+            <div class="modern-dot dot-5"></div>
+        </div>
+        
+        <!-- Loading quote -->
+        <div class="loading-quote">
+            <p>"We Assure the taste of our Delicacies are Unique"</p>
         </div>
     </div>
+    
+    <!-- Modern floating particles -->
+    <div class="modern-particles">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+        <div class="particle particle-6"></div>
+    </div>
+</div>
     
     <!-- Rest of your existing body content... -->
     <!-- Custom Cursor -->
@@ -2715,7 +3616,7 @@ body {
     <aside class="brand-panel">
         <div class="logo-container">
             <div class="logo-placeholder">
-                <img src="ChatGPT Image Jan 22, 2026, 10_41_33 PM.png" alt="KURT CREATES Logo">
+                <img src="me and honey.png" alt="KURT CREATES Logo">
             </div>
             <div class="brand-name">
                 <div class="brand-first">KURT</div>
@@ -2790,244 +3691,248 @@ body {
             </div>
         </section>
 
-        <!-- Menu Page with Slide-Up Carousel Descriptions -->
-        <section class="page" id="menuPage">
-            <h1 class="page-title scroll-animate">Our Menu</h1>
-            <p class="page-subtitle scroll-animate">Discover our signature Filipino meryenda delicacies, each crafted with traditional recipes and premium ingredients.</p>
-            
-            <div class="menu-grid">
-                <!-- Menu Item 1 - Kwek-Kwek -->
-                <div class="menu-card scroll-animate" style="--card-index: 0;">
-                    <img src="kwek.jpg" alt="Kwek-Kwek" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Kwek-Kwek</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-kwek">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    Traditional Filipino egg-based dish with a crispy orange batter coating
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Rich, savory flavor that's perfect for snacks
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Served with spicy vinegar dipping sauce
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
+        <!-- Fix the Menu Page section -->
+<section class="page" id="menuPage">
+    <h1 class="page-title scroll-animate">Our Menu</h1>
+    <p class="page-subtitle scroll-animate">Discover our signature Filipino meryenda delicacies, each crafted with traditional recipes and premium ingredients.</p>
+    
+    <div class="menu-grid">
+        <!-- Menu Item 1 - Kwek-Kwek -->
+        <div class="menu-card scroll-animate" style="--card-index: 0;">
+            <img src="Product photos/kwek.jpg" alt="Kwek-Kwek" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Kwek-Kwek</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-kwek">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Traditional Filipino egg-based dish with a crispy orange batter coating
                         </div>
-                        
-                        <div class="menu-price">
-                            <span>20</span>
-                            <i class="far fa-heart"></i>
+                        <div class="menu-desc-slide">
+                            Rich, savory flavor that's perfect for snacks
                         </div>
+                        <div class="menu-desc-slide">
+                            Served with spicy vinegar dipping sauce
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
                     </div>
                 </div>
                 
-                <!-- Menu Item 2 - Steamed Siomai -->
-                <div class="menu-card scroll-animate" style="--card-index: 1;">
-                    <img src="siomai.jpg" alt="Steamed Siomai" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Steamed Siomai</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-siomai">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    Traditional Filipino steamed dumplings filled with pork and shrimp
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Perfectly steamed to retain moisture and flavor
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Served with spicy vinegar dipping sauce and calamansi
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>30</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Menu Item 3 - Fried Noodles -->
-                <div class="menu-card scroll-animate" style="--card-index: 2;">
-                    <img src="friednoodles.jpg" alt="Fried Noodles" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Fried Noodles (Pancit)</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-noodles">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    Traditional Filipino fried noodles with vegetables and chicken
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Cooked with a savory sauce for authentic flavor
-                                </div>
-                                <div class="menu-desc-slide">
-                                    A classic Filipino comfort food perfect for gatherings
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>40</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Menu Item 4 - Fried Chicken Intestine -->
-                <div class="menu-card scroll-animate" style="--card-index: 3;">
-                    <img src="isaw.jpg" alt="Fried Chicken Intestine" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Fried Chicken Intestine (Isaw)</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-isaw">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    Traditional Filipino street food made from chicken intestines
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Expertly cleaned and fried to crispy perfection
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Seasoned with spices and served with spicy vinegar sauce
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>10</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Menu Item 5 - Cheese Burger -->
-                <div class="menu-card scroll-animate" style="--card-index: 4;">
-                    <img src="burger.jpg" alt="Cheese Burger" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Cheese Burger with Egg</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-burger">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    A classic cheeseburger with juicy beef patty and melted cheese
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Topped with a perfectly fried egg and fresh vegetables
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Special sauce in a soft, toasted bun for the ultimate burger experience
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>35</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Menu Item 6 - Betamax -->
-                <div class="menu-card scroll-animate" style="--card-index: 5;">
-                    <img src="beta.jpg" alt="Betamax" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Betamax</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-betamax">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    Grilled, coagulated pork blood cut into rectangular blocks
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Savory, slightly livery taste enhanced by grilling
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Served with tangy, spicy vinegar dipping sauce
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>10</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Menu Item 7 - Palamig -->
-                <div class="menu-card scroll-animate" style="--card-index: 6;">
-                    <img src="GEDC1647.JPG" alt="Palamig" class="menu-img">
-                    <div class="menu-content">
-                        <h3 class="menu-title">Palamig</h3>
-                        
-                        <!-- Description Carousel -->
-                        <div class="menu-desc-carousel" id="carousel-palamig">
-                            <div class="menu-desc-slides">
-                                <div class="menu-desc-slide active">
-                                    A refreshing drink made from coconut water, sugar, and spices
-                                </div>
-                                <div class="menu-desc-slide">
-                                    Perfectly chilled and served over ice
-                                </div>
-                                <div class="menu-desc-slide">
-                                    The ideal companion for our savory meryenda dishes
-                                </div>
-                            </div>
-                            <div class="menu-desc-nav">
-                                <div class="menu-desc-dot active" data-index="0"></div>
-                                <div class="menu-desc-dot" data-index="1"></div>
-                                <div class="menu-desc-dot" data-index="2"></div>
-                            </div>
-                        </div>
-                        
-                        <div class="menu-price">
-                            <span>10</span>
-                            <i class="far fa-heart"></i>
-                        </div>
-                    </div>
+                <div class="menu-price">
+                    <span>20</span>
+                    <i class="far fa-heart"></i>
                 </div>
             </div>
-            
+        </div>
+        
+        <!-- Menu Item 2 - Steamed Siomai -->
+        <div class="menu-card scroll-animate" style="--card-index: 1;">
+            <img src="Product photos/siomai.jpg" alt="Steamed Siomai" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Steamed Siomai</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-siomai">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Traditional Filipino steamed dumplings filled with pork and shrimp
+                        </div>
+                        <div class="menu-desc-slide">
+                            Perfectly steamed to retain moisture and flavor
+                        </div>
+                        <div class="menu-desc-slide">
+                            Served with spicy vinegar dipping sauce and calamansi
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>30</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Item 3 - Fried Noodles -->
+        <div class="menu-card scroll-animate" style="--card-index: 2;">
+            <img src="Product photos/friednoodles.jpg" alt="Fried Noodles" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Fried Noodles (Pancit)</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-noodles">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Traditional Filipino fried noodles with vegetables and chicken
+                        </div>
+                        <div class="menu-desc-slide">
+                            Cooked with a savory sauce for authentic flavor
+                        </div>
+                        <div class="menu-desc-slide">
+                            A classic Filipino comfort food perfect for gatherings
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>40</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Item 4 - Betamax -->
+        <div class="menu-card scroll-animate" style="--card-index: 3;">
+            <img src="Product photos/beta.jpg" alt="Betamax" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Betamax</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-betamax">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Grilled, coagulated pork blood cut into rectangular blocks
+                        </div>
+                        <div class="menu-desc-slide">
+                            Savory, slightly livery taste enhanced by grilling
+                        </div>
+                        <div class="menu-desc-slide">
+                            Served with tangy, spicy vinegar dipping sauce
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>10</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Item 5 - Palamig -->
+        <div class="menu-card scroll-animate" style="--card-index: 4;">
+            <img src="Product photos/Palamig.JPG" alt="Palamig" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Palamig</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-palamig">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            A refreshing drink made from coconut water, sugar, and spices
+                        </div>
+                        <div class="menu-desc-slide">
+                            Perfectly chilled and served over ice
+                        </div>
+                        <div class="menu-desc-slide">
+                            The ideal companion for our savory meryenda dishes
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>10</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Item 6 - Lumpia -->
+        <div class="menu-card scroll-animate" style="--card-index: 5;">
+            <img src="Product photos/Lumpia.png" alt="Lumpiang Gulay" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Lumpiang Gulay</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-lumpia">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Crispy and golden lumpia filled with vegetables and served with a sweet and sour dipping sauce
+                        </div>
+                        <div class="menu-desc-slide">
+                            Served hot and ready to enjoy
+                        </div>
+                        <div class="menu-desc-slide">
+                            The ideal companion for our savory meryenda dishes
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>10</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Item 7 - Fishball & Kikiam -->
+        <div class="menu-card scroll-animate" style="--card-index: 6;">
+            <img src="Product photos/kikiam and fishball.jpg" alt="Fishball & Kikiam" class="menu-img">
+            <div class="menu-content">
+                <h3 class="menu-title">Fishball & Kikiam</h3>
+                
+                <!-- Description Carousel -->
+                <div class="menu-desc-carousel" id="carousel-kikiam-fishball">
+                    <div class="menu-desc-slides">
+                        <div class="menu-desc-slide active">
+                            Crispy and golden kikiam served with tender fishballs and a sweet and sour dipping sauce
+                        </div>
+                        <div class="menu-desc-slide">
+                            Served hot and ready to enjoy
+                        </div>
+                        <div class="menu-desc-slide">
+                            The ideal companion for our savory meryenda dishes
+                        </div>
+                    </div>
+                    <div class="menu-desc-nav">
+                        <div class="menu-desc-dot active" data-index="0"></div>
+                        <div class="menu-desc-dot" data-index="1"></div>
+                        <div class="menu-desc-dot" data-index="2"></div>
+                    </div>
+                </div>
+                
+                <div class="menu-price">
+                    <span>10</span>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="page-footer">
+        <p>All prices are in Philippine Peso (₱). Menu items are subject to availability. Delivery charges may apply.</p>
+    </div>
+</section>
             <div class="page-footer">
                 <p>All prices are in Philippine Peso (₱). Menu items are subject to availability. Delivery charges may apply.</p>
             </div>
@@ -3112,93 +4017,92 @@ body {
                         
                         <div class="form-group">
                             <label class="form-label">Select Menu Items</label>
-                            <div class="menu-items-grid">
-                                <!-- Kwek-Kwek -->
-                                <div class="menu-item-card" data-item="kwek-kwek">
-                                    <h4>Kwek-Kwek</h4>
-                                    <p>Traditional Filipino egg-based dish with crispy orange batter</p>
-                                    <div class="menu-item-price">₱20</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Steamed Siomai -->
-                                <div class="menu-item-card" data-item="siomai">
-                                    <h4>Steamed Siomai</h4>
-                                    <p>Steamed dumplings filled with pork and shrimp</p>
-                                    <div class="menu-item-price">₱30</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Fried Noodles -->
-                                <div class="menu-item-card" data-item="noodles">
-                                    <h4>Fried Noodles (Pancit)</h4>
-                                    <p>Stir-fried noodles with vegetables and meat</p>
-                                    <div class="menu-item-price">₱40</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Cheese Burger -->
-                                <div class="menu-item-card" data-item="burger">
-                                    <h4>Cheese Burger</h4>
-                                    <p>Classic cheeseburger with lettuce, tomato, and special sauce</p>
-                                    <div class="menu-item-price">₱35</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
-                                
-                                <!-- Fried Isaw -->
-                                <div class="menu-item-card" data-item="isaw">
-                                    <h4>Fried Isaw</h4>
-                                    <p>Fried chicken intestines with spices and vinegar sauce</p>
-                                    <div class="menu-item-price">₱10</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
+                            <!-- Menu Items in Booking Form - Fix the structure -->
+<div class="menu-items-grid">
+    <!-- Kwek-Kwek -->
+    <div class="menu-item-card" data-item="kwek-kwek">
+        <h4>Kwek-Kwek</h4>
+        <p>Traditional Filipino egg-based dish with crispy orange batter</p>
+        <div class="menu-item-price">₱20</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
+    
+    <!-- Steamed Siomai -->
+    <div class="menu-item-card" data-item="siomai">
+        <h4>Steamed Siomai</h4>
+        <p>Steamed dumplings filled with pork and shrimp</p>
+        <div class="menu-item-price">₱30</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
+    
+    <!-- Fried Noodles -->
+    <div class="menu-item-card" data-item="noodles">
+        <h4>Fried Noodles (Pancit)</h4>
+        <p>Stir-fried noodles with vegetables and meat</p>
+        <div class="menu-item-price">₱40</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
 
-                                <!-- Betamax -->
-                                <div class="menu-item-card" data-item="betamax">
-                                    <h4>Betamax</h4>
-                                    <p>Grilled pork blood cubes with spicy vinegar sauce</p>
-                                    <div class="menu-item-price">₱10</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
+    <!-- Betamax -->
+    <div class="menu-item-card" data-item="betamax">
+        <h4>Betamax</h4>
+        <p>Grilled pork blood cubes with spicy vinegar sauce</p>
+        <div class="menu-item-price">₱10</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
 
-                                <!-- Palamig -->
-                                <div class="menu-item-card" data-item="palamig">
-                                    <h4>Palamig</h4>
-                                    <p>A refreshing drink made from coconut water, sugar, and spices</p>
-                                    <div class="menu-item-price">₱10</div>
-                                    <div class="quantity-selector">
-                                        <button type="button" class="quantity-btn minus">-</button>
-                                        <span class="quantity">0</span>
-                                        <button type="button" class="quantity-btn plus">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+    <!-- Palamig -->
+    <div class="menu-item-card" data-item="palamig">
+        <h4>Palamig</h4>
+        <p>A refreshing drink made from coconut water, sugar, and spices</p>
+        <div class="menu-item-price">₱10</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
+
+    <!-- Lumpia -->
+    <div class="menu-item-card" data-item="lumpia">
+        <h4>Lumpiang Gulay</h4>
+        <p>Crispy and golden lumpia filled with vegetables</p>
+        <div class="menu-item-price">₱10</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
+
+    <!-- Kikiam & Fishball -->
+    <div class="menu-item-card" data-item="kikiam-fishball">
+        <h4>Kikiam & Fishball</h4>
+        <p>Crispy kikiam served with tender fishballs</p>
+        <div class="menu-item-price">₱10</div>
+        <div class="quantity-selector">
+            <button type="button" class="quantity-btn minus">-</button>
+            <span class="quantity">0</span>
+            <button type="button" class="quantity-btn plus">+</button>
+        </div>
+    </div>
+</div>             
                         <div class="form-group">
                             <label for="notes" class="form-label">Special Instructions</label>
                             <textarea id="notes" class="form-control" rows="4" placeholder="Any special requests or dietary restrictions?"></textarea>
